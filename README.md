@@ -22,10 +22,10 @@
 **第 八　 週**：期中考週（進度暫停）<br>
 **第 九　 週**：定義 Task 結構與自定義比較運算子<br>
 **第 十　 週**：實作基於 Priority Queue 的任務排序與工時分配算法<br>
-**第 十一 週**：開發 SFML 基礎 UI 介面<br>
+**第 十一 週**：開發 SFML 基礎 UI 介面、Prototype Report<br>
 **第 十二 週**：實作滑鼠監聽與任務狀態變更邏輯<br>
 **第 十三 週**：介面優化（顏色過渡效果與佈局美化）<br>
-**第 十四 週**：專案發表
+**第 十四 週**：Final Report
 
 ### 與課程的關聯
 **Priority Queue (優先權佇列)**：透過 std::priority_queue 存儲 Task 物件，並實作自定義 Comparator，依據截止日期與工時權重進行動態排序。<br>
