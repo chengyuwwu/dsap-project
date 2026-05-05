@@ -1,5 +1,18 @@
+# 排除所有執行檔與動態庫
 *.exe
 *.dll
 *.o
 *.out
+
+# 排除 MSYS2 系統產生的腳本與無副檔名工具
+bz*
+c_rehash
+gdbus*
+gettext*
+glib*
+*.sh
+*.py
+
+# 排除 VS Code 與環境設定
 .vscode/
+.history/
