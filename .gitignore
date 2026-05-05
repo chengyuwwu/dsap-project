@@ -1,18 +1,28 @@
-# 排除所有執行檔與動態庫
+# 1. 排除執行檔與動態庫
 *.exe
 *.dll
 *.o
 *.out
 
-# 排除 MSYS2 系統產生的腳本與無副檔名工具
-bz*
-c_rehash
-gdbus*
-gettext*
-glib*
-*.sh
-*.py
+# 2. 排除所有帶有 -config 的檔案 (如 python-config, pcre2-config)
+*-config
 
-# 排除 VS Code 與環境設定
+# 3. 排除 Python 相關工具
+pydoc*
+python*
+idle*
+
+# 4. 排除 壓縮/系統 相關工具腳本
+xz*
+bz*
+libpng*
+ncurses*
+gettext*
+
+# 5. 排除其他特定雜物
+prototype.ex
+c_rehash
+
+# 6. 環境設定
 .vscode/
 .history/
