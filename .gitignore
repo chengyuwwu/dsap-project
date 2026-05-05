@@ -26,3 +26,15 @@ c_rehash
 # 6. 環境設定
 .vscode/
 .history/
+
+# 排除所有 Python 腳本與 Shell 腳本
+*.py
+*.sh
+
+# 排除 glib 與 gdbus 系列
+glib*
+gdbus*
+gtester*
+
+# 排除所有帶有 -config 的系統工具
+*-config
