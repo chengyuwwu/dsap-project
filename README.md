@@ -1,4 +1,4 @@
-# 🎨 任務規劃調色盤 (Task Palette)
+# 🎨 任務規劃調色盤 Task Palette
 
 ![Language](https://img.shields.io/badge/Language-C%2B%2B20-blue.svg)
 ![Library](https://img.shields.io/badge/Library-SFML%203.0-green.svg)
