@@ -6,7 +6,7 @@
 
 struct Task {
     std::string name;
-    std::chrono::system_clock::time_point deadlineTime; // 統一使用此名稱
+    std::chrono::system_clock::time_point deadlineTime;
     float estimatedTime; 
     float remainingTime; 
     float priorityScore;

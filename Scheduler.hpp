@@ -13,13 +13,13 @@
 class Scheduler {
 public:
     std::vector<Task> taskList;
-    float dailyCapacity = 8.0f; // 確保這個變數存在，供 main.cpp 使用
+    float dailyCapacity = 8.0f; // for main.cpp to use
 
-    // --- 儲存檔案 (包含 CAPACITY) ---
+    // 儲存檔案
     void saveToFile(std::string f) {
         std::ofstream out(f);
         if (!out) return;
-        // 第一行儲存目前的工時設定
+        // 第一行儲存目前的工時設定(dailyCapacity))
         out << "CAPACITY," << dailyCapacity << "\n"; 
         for (auto& t : taskList) {
             auto ts = std::chrono::time_point_cast<std::chrono::seconds>(t.deadlineTime).time_since_epoch().count();
@@ -27,7 +27,7 @@ public:
         }
     }
     
-    // --- 讀取檔案 (支援 CAPACITY 辨識) ---
+    // 讀取檔案
     void loadFromFile(std::string f) {
         std::ifstream in(f); 
         if (!in) return;
@@ -57,13 +57,13 @@ public:
                 auto tp = std::chrono::system_clock::time_point(std::chrono::seconds(std::stoll(ts)));
                 taskList.push_back({n, tp, std::stof(es), std::stof(rs), 0.0f});
             } catch (...) {
-                continue; // 忽略格式錯誤的列
+                continue; 
             }
         }
         updateAndSort();
     }
     
-    // --- 時間字串轉換 ---
+    // 時間字串轉換
     std::chrono::system_clock::time_point stringToTimePoint(const std::string& dateStr) {
         std::tm tm = {};
         std::stringstream ss(dateStr);
@@ -95,7 +95,7 @@ public:
 
     void updateAndSort() {
         for (auto& t : taskList) t.calculatePriority();
-        // 內部的初步排序（根據優先級分數）
+        // 根據優先級分數初步排序
         std::sort(taskList.begin(), taskList.end(), [](const Task& a, const Task& b) {
             return a.priorityScore > b.priorityScore;
         });

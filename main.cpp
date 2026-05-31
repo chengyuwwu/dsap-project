@@ -20,8 +20,7 @@ enum class UIState {
 };
 enum class ViewMode { ALL, TODAY };
 
-// --- 輔助函式：日期與輸入檢查 ---
-// 修正：允許輸入當天日期（只要時間點還沒過）
+// 輔助函式：日期與輸入檢查
 bool isValidDate(int y, int m, int d, int hr = 23, int min = 59) {
     if (y > 2100 || m < 1 || m > 12 || d < 1 || d > 31) return false;
     
@@ -64,7 +63,7 @@ std::string taskDateToStr(std::chrono::system_clock::time_point tp) {
     return oss.str();
 }
 
-// --- 排序邏輯優化：確保過期任務在最底，今日明日置頂 ---
+// 排序邏輯：過期任務在最底，今日明日置頂
 void sortTasksByLogic(std::vector<Task>& tasks) {
     auto now = std::chrono::system_clock::now();
     std::string todayStr = getTodayStr();
@@ -99,13 +98,11 @@ int main() {
     UIState currentState = UIState::LIST;
     ViewMode currentView = ViewMode::TODAY;
     
-    // 修正：從 Scheduler 獲取 dailyCapacity，確保存檔同步
-    // (注意：請確保你的 Scheduler.hpp 中有 dailyCapacity 成員)
     std::string inputBuffer = "", tempName = "", tempDate = "", errorMessage = "";
     int selectedTaskIdx = -1;
 
     while (window.isOpen()) {
-        // 每一幀檢查並排序，確保跨日時顏色自動變更
+        //每幀檢查並排序，確保跨日時顏色自動變更
         sortTasksByLogic(myScheduler.taskList);
 
         while (const std::optional<sf::Event> event = window.pollEvent()) {
@@ -116,7 +113,7 @@ int main() {
 
             if (currentState != UIState::LIST && currentState != UIState::EDIT_MENU) {
                 if (const auto* textEvent = event->getIf<sf::Event::TextEntered>()) {
-                    if (textEvent->unicode == 13) { // ENTER
+                    if (textEvent->unicode == 13) { 
                         try {
                             if (currentState == UIState::ADDING_NAME) { tempName = inputBuffer; currentState = UIState::ADDING_DATE; }
                             else if (currentState == UIState::SUB_EDIT_NAME) { myScheduler.taskList[selectedTaskIdx].name = inputBuffer; currentState = UIState::LIST; }
@@ -139,8 +136,8 @@ int main() {
                             else if (currentState == UIState::SETTING_CAPACITY) {
                                 float val = std::stof(inputBuffer);
                                 if (val >= 0 && val <= 24) { 
-                                    myScheduler.dailyCapacity = val; // 修改 Scheduler 內的變數
-                                    myScheduler.saveToFile("tasks.csv"); // 立即存檔
+                                    myScheduler.dailyCapacity = val; 
+                                    myScheduler.saveToFile("tasks.csv"); //立即存檔
                                     currentState = UIState::LIST; 
                                 }
                                 else { errorMessage = "Must be 0-24h"; inputBuffer = ""; }
@@ -149,7 +146,7 @@ int main() {
                         
                         if (currentState == UIState::LIST) { 
                             inputBuffer = ""; errorMessage = ""; 
-                            myScheduler.saveToFile("tasks.csv"); // 任何修改後自動存檔
+                            myScheduler.saveToFile("tasks.csv"); //任何修改後自動存檔
                         }
                         else if (errorMessage == "") inputBuffer = ""; 
                     } 
@@ -193,7 +190,7 @@ int main() {
             }
         }
 
-        // --- 渲染 ---
+        // 渲染
         window.clear(sf::Color(31, 47, 56));
         
         sf::Text header(font, "Today: " + getTodayStr(), 20); header.setPosition({50.f, 20.f}); window.draw(header);
