@@ -116,7 +116,7 @@ $$\sum Task_{Today} \cdot Unfinished\ Time > dailyCapacity$$
 **核心工程決策結論：**
 雖然 `priority_queue` 在動態維護上具有優異的理論複雜度，但**不支援隨機存取**。考慮到系統前端需要循序遍歷所有任務以渲染進度條，且使用者需要透過滑鼠點擊任意任務來觸發編輯選單，具備 $O(1)$ 隨機存取特性的 `std::vector` 成為了較佳解。在個人小規模任務（$N < 100$）下，Vector 的 CPU 快取友善性（Cache Friendly）更帶來了極佳的實質效能。
 
-<br><br>
+<br>
 
 ### 使用說明
 
@@ -136,7 +136,7 @@ $$\sum Task_{Today} \cdot Unfinished\ Time > dailyCapacity$$
 *  **綠色進度條**：每張卡片下方附有綠色動態進度條，清晰顯示該任務目前的完成比例。
 *  **黃色超載預警 (! Overload: Need Xh.)**：當今日必做任務的總工時超出使用者設定的 `Work Hours` 時，頂端會即時跳出黃色警示，提醒使用者重新調整今日規劃，防止崩潰。
 
-<br><br>
+<br>
 
 ### 反思與精進
 
