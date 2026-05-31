@@ -7,8 +7,8 @@
 #include <iomanip>
 #include <sstream>
 #include <cmath>
-#include <regex>
 #include <fstream>
+#include <regex>
 #include "Scheduler.hpp"
 
 // 定義 UI 狀態

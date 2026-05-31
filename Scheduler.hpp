@@ -3,11 +3,11 @@
 
 #include <vector>
 #include <string>
+#include <cmath>
 #include <algorithm>
 #include <fstream>
 #include <sstream>
 #include <chrono>
-#include <cmath>
 #include "Task.hpp"
 
 class Scheduler {

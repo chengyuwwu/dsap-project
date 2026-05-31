@@ -18,7 +18,6 @@ struct Task {
         float hoursLeft = duration.count() / 60.0f;
         if (hoursLeft <= 0.1f) hoursLeft = 0.1f; 
 
-        // 邏輯：時間越急、工作量越大，分數越高
         priorityScore = (100.0f / hoursLeft) + (remainingTime * 2.0f);
     }
 };
