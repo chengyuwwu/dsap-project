@@ -64,7 +64,11 @@ std::string taskDateToStr(std::chrono::system_clock::time_point tp) {
 }
 
 // 排序邏輯：過期任務在最底，今日明日置頂
+// 效能分析：量化 std::sort 在動態排序時的真實 CPU 耗時
 void sortTasksByLogic(std::vector<Task>& tasks) {
+    // 1. 記錄排序前的高精度時間戳記
+    auto startTime = std::chrono::high_resolution_clock::now();
+
     auto now = std::chrono::system_clock::now();
     std::string todayStr = getTodayStr();
     auto tomorrow_tp = now + std::chrono::hours(24);
@@ -83,6 +87,15 @@ void sortTasksByLogic(std::vector<Task>& tasks) {
         if (rankA != rankB) return rankA < rankB;
         return a.deadlineTime < b.deadlineTime; 
     });
+
+    // 2. 記錄排序結束的時間戳記並計算差值
+    auto endTime = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::micro> elapsed = endTime - startTime;
+
+    // 3. 即時印出到終端機
+    std::cout << "[Performance Analysis] std::vector + std::sort active frame sorting time: " 
+              << std::fixed << std::setprecision(3) << elapsed.count() << " us (" 
+              << elapsed.count() / 1000.0 << " ms)\n";
 }
 
 int main() {
